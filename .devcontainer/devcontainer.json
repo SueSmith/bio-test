@@ -1,8 +1,12 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+
 {
   "name": "Ubuntu",
   "image": "mcr.microsoft.com/devcontainers/base:noble",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "portsAttributes": {
     "7676": {
@@ -15,5 +19,41 @@
     "start": "npm run start",
     "build": "npm run build"
   },
-  "waitFor": "updateContentCommand"
+  "waitFor": "updateContentCommand",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "jkearins.action-buttons-ext@0.1.1"
+      ],
+      "settings": {
+        "chat.sendElementsToChat.enabled": false,
+        "editor.minimap.enabled": false,
+        "actionButtons": {
+          "commands": [
+            {
+              "name": "💻 Terminal",
+              "singleInstance": true,
+              "useVsCodeApi": true,
+              "command": "workbench.action.terminal.toggleTerminal",
+              "tooltip": "Open a terminal"
+            },
+            {
+              "name": "🧪 Serve",
+              "singleInstance": true,
+              "command": "npx --yes @fastly/compute-js-static-publish@latest --root-dir=./build --kv-store-name=my-site-content && cd compute-js && npm run dev:publish && npm run dev:start",
+              "tooltip": "Test your Fastly Compute app"
+            },
+            {
+              "name": "🚀 Publish",
+              "singleInstance": true,
+              "command": "cd compute-js && npm run fastly:deploy && npm run fastly:publish || echo 'Make sure you have a Fastly API Key in your project!'",
+              "tooltip": "Publish your content to Fastly Compute"
+            }
+          ],
+          "defaultColor": "none",
+          "reloadButton": null
+        }
+      }
+    }
+  }
 }
