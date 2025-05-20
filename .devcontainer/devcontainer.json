@@ -11,6 +11,9 @@
     }
   },
   "updateContentCommand": "npm install",
-  "postAttachCommand": "npm run start && npm run build",
+  "postAttachCommand": {
+    "start": "npm run start",
+    "build": "npm run build"
+  },
   "waitFor": "updateContentCommand"
 }
