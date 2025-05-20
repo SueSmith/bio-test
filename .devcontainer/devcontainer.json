@@ -46,7 +46,7 @@
             {
               "name": "🚀 Publish",
               "singleInstance": true,
-              "command": "cd compute-js && npm run fastly:deploy && npm run fastly:publish || echo 'Make sure you have a Fastly API Key in your project!'",
+              "command": "cd compute-js && npm run fastly:deploy && npm run fastly:publish && readarray -t lines < <(npx --yes @fastly/cli domain list --version=latest) && IFS='   ' read -r -a array <<< \"${lines[1]}\" && echo 'YAY check out your new site 🪩 🛼 🎏' && echo https://${array[2]}",
               "tooltip": "Publish your content to Fastly Compute"
             }
           ],
